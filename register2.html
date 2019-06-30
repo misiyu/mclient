@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<title>Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js" >
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- font files  -->
+<link href='http://fonts.useso.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.useso.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+<!-- /font files  -->
+<!-- css files -->
+<link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
+<!-- /css files -->
+</head>
+<body>
+<h1>多模网络标识视频客户端</h1>
+<div class="log">
+	<div class="content2">
+		<h2>用户注册</h2>
+		<form onsubmit="register() ; return false ;" >
+			<input type="text" name="userid" id="input_id1" value="用户名"   placeholder="用户名" >
+			<input type="tel" name="usrtel" id="input_id2" value="电话号码"  placeholder="电话号码" >
+			<input type="text" name="real_name" id="input_id5" value="真实姓名"   placeholder="真实姓名" >
+			<input type="text" name="user_id" id="input_id6" value="身份证号"  placeholder="身份证号" >
+			<input type="text" name="email" id="input_id7" value="描述信息"  placeholder="描述信息" >
+			<input type="text" name="email" id="input_id3" value="申请前缀"  placeholder="申请前缀" >
+			<input type="text" name="userkey" id="input_id4" value="密钥路径" placeholder="密钥路径" >
+			<input type="submit" class="register" value="注册" >
+	</div>
+	<div class="clear"></div>
+	<div  id="qrdiv" style="display:none">
+		<img name="qrcode" id="qrcimg" style="width:400px;height:400px;"style="visibility:hidden" /> 
+	</div>
+</div>
+<div class="footer">
+	<p>链接：<a target="_blank" href="./register.html" >注册-</a><a target="_blank" href="./play.html" >播放-</a><a target="_blank" href="./create_url-1.html" >发布-</a><a target="_blank" href="./getuserdata.html" >查询-</a><a target="_blank" href="./more_n.php" >导航</a></p>
+</div>
+<div class="footer2">
+	<!--<p >Copyright@国家重大科技基础设施——未来网络北大深圳创新中心/深圳市信息论与未来网络体系重点实验室<a target="_blank" href="" ></a></p>-->
+</div>
+<script language="javascript" >
+
+function register(){
+	var input_1 = $("#input_id1").val();
+	var input_2 = $("#input_id2").val();
+	var input_3 = $("#input_id3").val();
+	var input_4 = $("#input_id4").val();
+	var input_5 = $("#input_id5").val();
+	var input_6 = $("#input_id6").val();
+	var input_7 = $("#input_id7").val();
+	if(input_3[0] != '/'){
+		alert("请正确填写前缀名");
+		return false;
+	}
+	
+	var qrc = document.getElementById("qrcimg");
+	var qrd = document.getElementById("qrdiv");
+	console.log("========================" + input_1 + "\n");
+	console.log("========================" + input_2 + "\n");
+	console.log("========================" + input_3 + "\n");
+	console.log("========================" + input_4 + "\n");
+	
+	
+	$.post("register.php",{
+		input1: input_1,
+		input2: input_2,
+		input3: input_3,
+		input4: input_4,
+		input5: input_5,
+		input6: input_6,
+		input7: input_7
+	},
+	function(data,status){
+		//window.location.href="http://localhost/002.mp4";
+		alert(data);
+		if(data[0] == 'o'){
+			qrd.style.position="absolute";
+			qrd.width="600px";
+			qrd.height="600px";
+			qrd.margin="200px";
+			qrd.style.left="35%";
+			qrd.style.top="30%";
+			qrd.style.display="";
+			//show QR code
+			qrc.src="./keystore/tdc.png";
+			if(qrc.style.visibility == "hidden")
+				qrc.style.visibility="visible";
+		}
+	
+	});
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+	"proxy_ip" : "121.15.171.82",
+	"proxy_ip-node14" : "121.15.171.85",
+	"proxy_ip-node13" : "121.15.171.85",
+	"openplayer" : 1 ,
+	"player": "smplayer",
+	"player1": "chromium-browser"
+}
