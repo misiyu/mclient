@@ -1,6 +1,7 @@
 var MyUserName = "";
 var MyGroup = "" ;
 var MyPhone = "" ;
+var isIP = false ;
 
 MyUserName = getQueryVariable("username");
 MyGroup = getQueryVariable("groupname");
@@ -53,28 +54,37 @@ function load_cert(cer_name){
 }
 
 function ndn_switch(obj){
-	var value = obj.value ;
-	//alert(value);
-	if(MyUserName == "")
-	{
-		bs4pop.prompt1("上网证书" ,"确认" , "申请证书", "输入证书路径或名称","misiyu",function(ok){
-			if(ok == true){
-				cer_name = document.getElementById("prompt-input").value;
-				load_cert(cer_name);
-			}else{
-				//跳转申请加入群
-				//window.open( "./cer/gen_cer.html" ) ;
-				window.open( "localhost:8090" ) ;
-			}
-			//var group_name = 
-			//console.log(group_name);
-		});
+	var content ;
+	if(isIP == false){
+		isIP = true ;
+		content = "您将使用IP网络上网" ;
+		bs4pop.alert1("使用IP网" , content, function(){});
 	}
 	else{
-		alert("退出登录") ;
-		//obj.value = "ip" ;
-		MyUserName = "";
+		isIP = false ;
+		content = "您将使用身份网络上网" ;
+		bs4pop.alert1("使用身份网" , content, function(){});
 	}
+	//if(MyUserName == "")
+	//{
+		//bs4pop.prompt1("上网证书" ,"确认" , "申请证书", "输入证书路径或名称","misiyu",function(ok){
+			//if(ok == true){
+				//cer_name = document.getElementById("prompt-input").value;
+				//load_cert(cer_name);
+			//}else{
+				////跳转申请加入群
+				////window.open( "./cer/gen_cer.html" ) ;
+				//window.open( "localhost:8090" ) ;
+			//}
+			////var group_name = 
+			////console.log(group_name);
+		//});
+	//}
+	//else{
+		//alert("退出登录") ;
+		////obj.value = "ip" ;
+		//MyUserName = "";
+	//}
 }
 function login(obj){
 	var value = obj.value ;
@@ -245,6 +255,11 @@ function get_visa(osn_name){
 		});
 }
 function get_data(input_1){
+	if(isIP && input_1[0] == '/'){
+		var content = "您作为IP用户，不能访问主权网内部数据！" ;
+		bs4pop.notice(content, {position: 'topright'}) ;
+		return false ;
+	}
 	if(input_1[0] != '/'){
 		var title = "获取IP互联网数据 : " + input_1  ;
 		var content = "数据拉取行为需要签名并将被记录" ; 

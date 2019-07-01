@@ -1,0 +1,1 @@
+./osn_client /-DX/ndn/edu/dx/node6/video/dagada-720-01.mp4/~/1367028674g
